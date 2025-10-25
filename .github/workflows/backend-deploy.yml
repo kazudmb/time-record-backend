@@ -22,11 +22,8 @@ jobs:
       matrix:
         env:
           - name: dev
-            upper: DEV
           - name: stg
-            upper: STG
           - name: prd
-            upper: PRD
         # function:
           # - name: get_cafes
           #   code_dir: get_cafes
@@ -94,7 +91,7 @@ jobs:
           env_name: ${{ matrix.env.name }}
           product: ${{ env.PRODUCT }}
           aws_region: ${{ env.AWS_REGION }}
-          aws_role_arn: ${{ secrets[format('AWS_ROLE_ARN_{0}', matrix.env.upper)] }}
-          artifact_bucket: ${{ secrets[format('ARTIFACT_BUCKET_{0}', matrix.env.upper)] }}
+          aws_role_arn: ${{ secrets.AWS_ROLE_ARN }}
+          artifact_bucket: ${{ secrets.ARTIFACT_BUCKET }}
           python_version: "3.12"
           function_name: ${{ format('{0}-{1}', env.PRODUCT, matrix.function.func_suffix) }}
