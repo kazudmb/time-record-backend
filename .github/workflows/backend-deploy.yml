@@ -1,10 +1,16 @@
 name: backend-deploy
 
 on:
-  workflow_dispatch:
   push:
-    # TODO: Enable stg/prd when release branches are ready.
-    branches: [ main ]
+    branches:
+      - main
+      - stg
+      - prd
+  workflow_dispatch:
+    inputs:
+      target_env:
+        description: '手動実行で対象環境を指定する場合に利用します (dev/stg/prd)'
+        required: false
 
 jobs:
   deploy:
@@ -17,11 +23,10 @@ jobs:
         env:
           - name: dev
             upper: DEV
-          # TODO: Enable stg/prd when release branches are ready.
-          # - name: stg
-          #   upper: STG
-          # - name: prd
-          #   upper: PRD
+          - name: stg
+            upper: STG
+          - name: prd
+            upper: PRD
         # function:
           # - name: get_cafes
           #   code_dir: get_cafes
